@@ -1,10 +1,10 @@
-
 GC_content = {
-	exec "perl prinseq-lite.pl -fastq $input -graph_data -graph_stats gc -out_good null -out_bad null"
+
+	exec "perl prinseq-lite.pl -fastq $input -graph_data graphics_results/$output.gd -graph_stats gc -out_good null -out_bad null "
 }
-Graph_values = {
-	exec "perl prinseq-graphs.pl -i $input -png_all"
+
+GC_content_fil = {
+
+	exec "perl prinseq-lite.pl -fastq $input -graph_data graphics_results/filtered_graphics/$output.gd -graph_stats gc -out_good null -out_bad null "
 }
-Bpipe.run {
-	GC_content + Graph_values
-}
+
