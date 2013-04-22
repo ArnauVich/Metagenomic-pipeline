@@ -1,7 +1,6 @@
-LEN_CUT= 180
 Length_filter= {
-	exec "ht-filter -F length -i $input -L $LEN_CUT -o longfil"
+	filter ("l"){
+	exec "ht-filter -F length -i $input -L $LEN_CUT -o $output.prefix"
+	exec "rm $input"
 }
-Bpipe.run{
-	Length_filter
 }
