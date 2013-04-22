@@ -1,13 +1,17 @@
-MAX_READ_LEN= 200
- //maximum read length to consider 
-OUT_DIR= "./"
+OUT_DIR= "./graphics_results/"
  //output directory for statistics summary
-statistics = {
+OUT_DIR_FIL= "./graphics_results/filtered_graphics/statistics_graph/"
+ //output directory for statistics summary
+Statistics = {
 	exec "ht-stat -i $input -o $OUT_DIR -l $MAX_READ_LEN "
 }
 draw_statistics = {
 	exec "ht-stat-draw.pl --dir $OUT_DIR --format png "
 }
-Bpipe.run {
-	statistics + draw_statistics
+Statistics_fil = {
+	exec "mkdir ./graphics_results/filtered_graphics/statistics_graph/"
+	exec "ht-stat -i $input -o $OUT_DIR_FIL -l $MAX_READ_LEN "
+}
+draw_statistics_fil = {
+	exec "ht-stat-draw.pl --dir $OUT_DIR_FIL --format png "
 }
