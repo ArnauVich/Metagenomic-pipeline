@@ -1,10 +1,6 @@
-
 Dinucleotide_odds = {
-	exec "perl prinseq-lite.pl -fastq $input -graph_data -graph_stats dn -out_good null -out_bad null "
+	exec "perl prinseq-lite.pl -fastq $input -graph_data graphics_results/$output.gd -graph_stats dn -out_good null -out_bad null "
 }
-Graph_values = {
-	exec "perl prinseq-graphs -i $input -png_all"
-}
-Bpipe.run {
-	Dinucleotide_odds + Graph_values
+Dinucleotide_odds_fil = {
+	exec "perl prinseq-lite.pl -fastq $input -graph_data graphics_results/filtered_graphics/$output.gd -graph_stats dn -out_good null -out_bad null "
 }
