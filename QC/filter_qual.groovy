@@ -1,10 +1,6 @@
-QUAL_CUT= 20
-//indicate the quality cutoff for each sequence
-
 Quality_filter={
-	exec "ht-filter -F quality -i $input -Q $QUAL_CUT -o qualfil"
+	filter ("q"){
+	exec "ht-filter -F quality -i $input -Q $QUAL_CUT -o $output.prefix"
+	exec "rm $input"
 }
-
-Bpipe.run{
-	Quality_filter
 }
