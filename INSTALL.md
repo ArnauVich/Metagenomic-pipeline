@@ -1,3 +1,5 @@
+Pipeline dependencies
+==================================
 This pipeline needs the following programs for running correctly.
 ==================================
 Bpipe:
