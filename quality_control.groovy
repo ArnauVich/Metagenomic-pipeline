@@ -1,8 +1,8 @@
 load "QC_parameters.groovy"
 Results={
-	exec "mkdir graphics_results/"
-	exec "mkdir graphics_results/filtered_graphics"
-	exec "mkdir graphics_results/statistic_files"
+	exec "mkdir ./graphics_results/"
+	exec "mkdir ./graphics_results/filtered_graphics"
+	exec "mkdir ./graphics_results/statistic_files"
 }
 
 Statistics_graph= segment {
@@ -16,7 +16,7 @@ Quality_graph= segment {
 	[Dinucleotide_odds + Graph_values, Sequence_duplication + Graph_values, GC_content + Graph_values]
 }
 Filtered_graph= segment {
-	[Dinucleotide_odds_fil + Graph_values_fil, Sequence_duplication_fil + Graph_values_fil, GC_content_fil + Graph_values_fil]
+	[Dinucleotide_odds_fil, Sequence_duplication_fil, GC_content_fil]
 }
 
 
@@ -24,11 +24,11 @@ Bpipe.run{
 	Results
 }
 Bpipe.run{
-	Statistics_graph
+	Statistics_graph_2
 }
 Bpipe.run{
 	Quality_graph
 }
 Bpipe.run {
-	Remove_adapters + Trim_tails + Ends_trimming + Artifact_filter + N_filter + Quality_filter + Length_filter + [Filtered_graph, Statistics_filtered, Remove_duplicates]
+	Remove_adapters + Trim_tails + Ends_trimming + Artifact_filter + N_filter + Quality_filter + Length_filter + Remove_duplicates + [Filtered_graph, Statistics_graph_2_fil] + Graph_values_fil
 }
