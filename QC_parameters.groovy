@@ -22,16 +22,13 @@ TRIM_LEFT= 5
 TRIM_OP= "tail"
 // trim options can be: tail/head/both
 
-QUAL_CUT= 10
-// quality cut-off for reads
+ADAPTER1= "^GATCGGAAGAGCGGTTCAGCAGGAATGCCGAGACCGATATCGTATGCCGT"
 
-ADAPTER1 = "^GATCGGAAGAGCGGTTCAGCAGGAATGCCGAGACCGATATCGTATGCCGT"
+ADAPTER2= "^GATCGGAAGAGCTCGTATGCCGTCTTCTGCTTG"
+	// adapters to be trimmed. The "^" indicates that tha adapters are at the begining of the sequence
 
-ADAPTER2 = "^GATCGGAAGAGCTCGTATGCCGTCTTCTGCTTG"
-// adapters to be trimmed. The "^" indicates that tha adapters are at the begining of the sequence. 
-
-OVERLAP = 15
-//  Minimum overlap length. If the overlap between the read and the adapter is shorter than X, the read is not modified
+OVERLAP= 20
+	//  Minimum overlap length. If the overlap between the read and the adapter is shorter than X, the read is not modified
 
 ERROR= 0.1
-// Maximum allowed error rate during the adapter trimming
+	// Maximum allowed error rate during the adapter trimming
