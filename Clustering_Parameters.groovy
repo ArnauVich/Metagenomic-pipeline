@@ -1,5 +1,5 @@
 //Parameters for the clustering pipeline
-THRESHOLD = 0.99
+THRESHOLD = 0.90
 //GLOBAL PARAMETER.Sequence identity. Number of identical nucleotides divided by the full length of shorter sequence
 THREADS = 8
 //GLOBAL PARAMETER.CPUs used.
