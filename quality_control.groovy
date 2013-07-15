@@ -30,5 +30,8 @@ Bpipe.run{
 	Quality_graph
 }
 Bpipe.run {
-	Remove_adapters + Trim_tails + Ends_trimming + Artifact_filter + N_filter + Quality_filter + Length_filter + Remove_duplicates + [Filtered_graph, Statistics_graph_2_fil] + Graph_values_fil
+	Remove_adapters + Trim_tails + Ends_trimming + Artifact_filter + N_filter + Quality_filter + Length_filter + Remove_duplicates + [Filtered_graph, Statistics_graph_2_fil] 
+}
+Bpipe.run {
+	Graph_values_fil
 }
