@@ -1,5 +1,9 @@
 load "Annotation_Parameters.groovy"
 
+Create_dir ={
+	exec "mkdir Annotation" 
+}
+
 Orf_predictor = "FGS_pred"
 
 FGS_pred= segment{
@@ -19,8 +23,10 @@ if (ORF == "Prodigal"){
 }
 else { Orf_predictor = FGS_pred }
 
-
+//Bpipe.run {
+//	Create_dir
+//}
 
 Bpipe.run {
-	Orf_predictor
+	Orf_predictor + Blat + Select_columns + Use_sqlite
 }
