@@ -1,3 +1,3 @@
 Statistics_FGS = {
-	exec "statistics_FGS.sh $input > statistics_ORF_fgs"
+	exec "statistics_FGS.sh $input > Annotation/statistics_ORF_fgs"
 }
