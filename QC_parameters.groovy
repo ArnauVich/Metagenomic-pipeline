@@ -1,5 +1,5 @@
 // Parameters for a Quality Control Pipeline
-
+//OUT=$dir
 
 NPERC= 40
 // maxim percentage of N's bases admited, value from 0 to 100
