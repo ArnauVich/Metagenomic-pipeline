@@ -118,7 +118,7 @@ sub import_input {
 ##my stmth->finish;
 ##print $dbh ->{sqlite_version} 
 sub InterPro {
-	print "Matching Interpro database";
+	print "Matching Interpro database\n";
 	my $result= $dbh -> selectall_arrayref (qq(SELECT matching_prot.*, InterPro.Id, InterPro.Protein, InterPro.Specie, InterPro.DB FROM matching_prot, InterPro
 		WHERE matching_prot.M5 = InterPro.M5 ));
 	open FILE, ">$output_path/result_Interpro" or die;
@@ -129,7 +129,7 @@ sub InterPro {
 	close FILE;
 }
 sub IMG {
-	print "Matching IMG database";
+	print "Matching IMG database\n";
 	my $result= $dbh -> selectall_arrayref (qq(SELECT matching_prot.*, IMG.Id, IMG.Protein, IMG.Specie, IMG.DB FROM matching_prot, IMG
 		WHERE matching_prot.M5 = IMG.M5 ));
 	open FILE, ">$output_path/result_IMG" or die;
@@ -140,7 +140,7 @@ sub IMG {
 	close FILE;
 }
 sub PHANTOME {
-	print "Matching PHANTOME database";
+	print "Matching PHANTOME database\n";
 	my $result= $dbh -> selectall_arrayref (qq(SELECT matching_prot.*, PHANTOME.Id, PHANTOME.Protein, PHANTOME.Specie, PHANTOME.DB FROM matching_prot, PHANTOME
 		WHERE matching_prot.M5 = PHANTOME.M5 ));
 	open FILE, ">$output_path/result_PHANTOME" or die;
@@ -151,7 +151,7 @@ sub PHANTOME {
 	close FILE;
 }
 sub PATRIC {
-	print "Matching PATRIC database";
+	print "Matching PATRIC database\n";
 	my $result= $dbh -> selectall_arrayref (qq(SELECT matching_prot.*, PATRIC.Id, PATRIC.Protein, PATRIC.Specie, PATRIC.DB FROM matching_prot, PATRIC
 		WHERE matching_prot.M5 = PATRIC.M5 ));
 	open FILE, ">$output_path/result_PATRIC" or die;
@@ -162,7 +162,7 @@ sub PATRIC {
 	close FILE;
 }
 sub KEGG {
-	print "Matching KEGG database";
+	print "Matching KEGG database\n";
 	my $result= $dbh -> selectall_arrayref (qq(SELECT matching_prot.*, KEGG_function.Id, KEGG_function.Protein, KEGG_function.Specie, KEGG_function.DB FROM matching_prot, KEGG_function
 		WHERE matching_prot.M5 = KEGG_function.M5 ));
 	open FILE, ">$output_path/result_KEGG" or die;
@@ -175,7 +175,7 @@ sub KEGG {
 sub KEGG_ontology {
 	my $result= $dbh -> selectall_arrayref (qq(SELECT matching_prot.*, KEGG_ontology.Ontology, KEGG_hierachy.Path, KEGG_hierachy.Functions, KEGG_hierachy.Family FROM matching_prot, KEGG_ontology, KEGG_hierachy
 		WHERE matching_prot.M5 = KEGG_ontology.M5 AND KEGG_ontology.KO_Id = KEGG_hierachy.KO_ID ));
-	open FILE, ">$output_path/result_KEGG_ontology" or die;
+	open FILE, ">$output_path/Ontology_KEGG" or die;
 	foreach my $I (@$result){
 		my ($id, $M5, $Identity, $Evalue, $Bit_score, $Ontology, $Path, $Functions, $Family) = @$I;
 		print FILE "$id \t $M5 \t $Identity \t $Evalue \t $Bit_score \t $Ontology \t $Path \t $Functions \t $Family\n";
@@ -183,7 +183,7 @@ sub KEGG_ontology {
 	close FILE;
 }
 sub SEED {
-	print "Matching SEED database";
+	print "Matching SEED database\n";
 	my $result= $dbh -> selectall_arrayref (qq(SELECT matching_prot.*, SEED_function.Id, SEED_function.Protein, SEED_function.Specie, SEED_function.DB FROM matching_prot, SEED_function
 		WHERE matching_prot.M5 = SEED_function.M5 ));
 	open FILE, ">$output_path/result_SEED" or die;
@@ -196,7 +196,7 @@ sub SEED {
 sub SEED_ontology {
 	my $result= $dbh -> selectall_arrayref (qq(SELECT matching_prot.*, SEED_ontology.Ontology, SEED_subsystems.* FROM matching_prot, SEED_ontology, SEED_subsystems
 		WHERE matching_prot.M5 = SEED_ontology.M5 AND SEED_ontology.SS_Id = SEED_subsystems.SS_Id ));
-	open FILE, ">$output_path/result_SEED_ontology" or die;
+	open FILE, ">$output_path/Ontology_SEED" or die;
 	foreach my $I (@$result){
 		my ($id, $M5, $Identity, $Evalue, $Bit_score, $Ontology, $Related, $Process, $Function, $Name, $SS_Id) = @$I;
 		print FILE "$id \t $M5 \t $Identity \t $Evalue \t $Bit_score \t $Ontology \t $Related \t $Process \t $Function \t $Name \t $SS_Id \n";
@@ -204,7 +204,7 @@ sub SEED_ontology {
 	close FILE;
 }
 sub Swissprot {
-	print "Matching UniProt database";
+	print "Matching UniProt database\n";
 	my $result= $dbh -> selectall_arrayref (qq(SELECT matching_prot.*, Swissprot_function.Id, Swissprot_function.Protein, Swissprot_function.Specie, Swissprot_function.DB FROM matching_prot, Swissprot_function
 		WHERE matching_prot.M5 = Swissprot_function.M5 ));
 	open FILE, ">$output_path/result_Swissprot" or die;
@@ -247,7 +247,7 @@ sub TrEMBL_ontology {
 }
 
 sub GenBank {
-	print "Matching NCBI database";
+	print "Matching NCBI database\n";
 	my $result= $dbh -> selectall_arrayref (qq(SELECT matching_prot.*, GenBank_function.Id, GenBank_function.Protein, GenBank_function.Specie, GenBank_function.DB FROM matching_prot, GenBank_function
 		WHERE matching_prot.M5 = GenBank_function.M5 ));
 	open FILE, ">$output_path/result_GenBank" or die;
