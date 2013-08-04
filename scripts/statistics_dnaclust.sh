@@ -28,14 +28,16 @@ awk '
 #The sequence id is saved when the line starts with ">"
 #A counter counts each cluster in order to numerate each one. 
 #When the line doesn't start with ">", it counts all the characters in the line (sequence length)
-awk 'NR==FNR{a[$1]=$2; FS $3 ;next}{print $0,a[$2]}' temp2 temp1 > dna_clust_summary
+awk 'NR==FNR{a[$1]=$2; FS $3 ;next}{print $0,"\t"a[$2]}' temp2 temp1 > ./statistic_files/cluster_summary
+cat ./statistic_files/cluster_summary | sort -nr -k 4,4 > ./statistic_files/cluster_sum
 #if the column 1 of the temp2 is the same than the column 2 in temp1 marge the two files in a new document. 
-if [ -s dna_clust_summary ]
+if [ -s ./statistic_files/cluster_sum ]
 then
         rm -f temp1
         rm -f temp2
+        rm -f ./statistic_files/cluster_summary
 else
-        rm -f dna_clust_summary
+        rm -f ./statistic_files/cluster_summary
         echo "ERROR: It is not posible to generate DNACLUST cluster summary. Please check the Dnaclust output"
         exit 1 
 fi
