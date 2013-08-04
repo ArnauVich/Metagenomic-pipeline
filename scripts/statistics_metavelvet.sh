@@ -14,4 +14,4 @@ awk '
 	END{
 		if (count != "") {printf "%s\t %s\t %d\n", cluster, seq_id, count}
 		}
-' $1 > Statistics_velvet
+' $1 > ./statistic_files/cluster_summary
