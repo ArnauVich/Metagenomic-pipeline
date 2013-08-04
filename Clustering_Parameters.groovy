@@ -3,7 +3,7 @@ THRESHOLD = 0.90
 //GLOBAL PARAMETER.Sequence identity. Number of identical nucleotides divided by the full length of shorter sequence
 THREADS = 8
 //GLOBAL PARAMETER.CPUs used.
-KFILT = 10
+KFILT = 0
 //CD-HIT and DNACLUST PARAMETER.Short word filter length. WARNING a higher KMER value implies higher memory requeriments. 
 TAG = 30
 //CD-HIT PARAMETER.TAG is the length for the descrition (sequence id). If it set to 0 it takes the sequence id and stopts at first space.
