@@ -22,7 +22,9 @@ MIN_ID= 25
 // BLAT minumum identity. 
 
 PATH_TO_LOCAL_M5="/media/My\\ Passport/Sources/M5nr_db"
-DATABASES="InterPro"
+ // WARNING: Bpipes needs a backslash to skip a backslash, so it is needed to double them. Ex:  PATH_TO_Md5nr= "/media/MY\\ PASSPORT/test_db"
+
+DATABASES="ALL"
  //InterPro
  //IMG
  //PHANTOME
@@ -32,5 +34,5 @@ DATABASES="InterPro"
  //UniProt
  //KEGG
  //ALL
- // WARNING: Bpipes needs a backslash to skip a backslash, so it is needed to double them. Ex:  PATH_TO_Md5nr= "/media/MY\\ PASSPORT/test_db"
-OUT_PATH="./"
+
+//OUT_PATH="./Hits_databases/"
