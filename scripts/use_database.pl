@@ -11,7 +11,7 @@ my $userid = "";
 my $password = "";
 my $databases= "";
 my $input="";
-my $output_path=".";
+my $output_path="./Hits_databases/";
 
 
 GetOptions ('input|in:s' => \$input, 
@@ -56,21 +56,40 @@ if (@databases) {
 	}
 	if ($i eq 'UniProt'){
 		Swissprot ();
-		#Swissprot_ontology ();
+		Swissprot_ontology ();
 		TrEMBL ();
-		#TrEMBL_ontology ();
+		TrEMBL_ontology ();
 	}
 	if ($i eq 'NCBI'){
 		GenBank ();
-		#GenBank_ref ();
+		GenBank_ref ();
 		RefSeq ();
-		#RefSeq_tax ();
+		RefSeq_tax ();
 	}
+	if ($i eq 'eggNOG'){
+		eggNOG ();
+		eggNOG_ontology ();
+	}
+	if ($i eq 'SILVA'){
+		LSU ();
+		LSU_tax ();
+		SSU ();
+		SSU_tax ();
+	}
+	if ($i eq 'RDP'){
+		RDP ();
+		RDP_tax ();
+	}
+	if ($i eq 'Greengenes'){
+		Greengenes ();
+		Greengenes_tax ();
+	}
+
 	if ($i eq 'ALL'){
 		GenBank ();
-		#GenBank_ref ();
+		GenBank_ref ();
 		RefSeq ();
-		#RefSeq_tax ();
+		RefSeq_tax ();
 		Swissprot ();
 		#Swissprot_ontology ();
 		TrEMBL ();
@@ -83,6 +102,18 @@ if (@databases) {
 		IMG ();
 		PHANTOME ();
 		InterPro();
+		eggNOG ();
+		eggNOG_ontology ();
+	}
+	if ($i eq 'rRNA'){
+		LSU ();
+		LSU_tax ();
+		SSU ();
+		SSU_tax ();
+		RDP ();
+		RDP_tax ();
+		Greengenes ();
+		Greengenes_tax ();
 	}
 	else {
 		print "No existing database, please make sure that you have created any database\n"
@@ -215,12 +246,12 @@ sub Swissprot {
 	close FILE;
 }
 sub Swissprot_ontology {
-	my $result= $dbh -> selectall_arrayref (qq(SELECT matching_prot.*, Swissprot_ontology.GO_Id, Swissprot_ontology.Ontology FROM matching_prot, Swissprot_ontology
-		WHERE matching_prot.M5 = Swissprot_ontology.M5 ));
-	open FILE, ">$output_path/result_Swissprot_ontology" or die;
+	my $result= $dbh -> selectall_arrayref (qq(SELECT matching_prot.*, Swissprot_ontology.GO_Id, GO_ontology.Ontology, Swissprot_ontology.Ontology FROM matching_prot, Swissprot_ontology, GO_ontology
+		WHERE matching_prot.M5 = Swissprot_ontology.M5 AND Swissprot_ontology.GO_Id = GO_ontology.Id));
+	open FILE, ">$output_path/Ontology_Swissprot" or die;
 	foreach my $I (@$result){
-		my ($id, $M5, $Identity, $Evalue, $Bit_score, $GO_Id, $Ontology ) = @$I;
-		print FILE "$id \t $M5 \t $Identity \t $Evalue \t $Bit_score \t $GO_Id\t $Ontology \n";
+		my ($id, $M5, $Identity, $Evalue, $Bit_score, $GO_Id, $Ontology, $level2 ) = @$I;
+		print FILE "$id \t $M5 \t $Identity \t $Evalue \t $Bit_score \t $GO_Id\t $Ontology \t $level2 \n";
 	}	
 	close FILE;
 }
@@ -236,12 +267,12 @@ sub TrEMBL {
 }
 
 sub TrEMBL_ontology {
-	my $result= $dbh -> selectall_arrayref (qq(SELECT matching_prot.*, TrEMBL_ontology.GO_Id, TrEMBL_ontology.Ontology FROM matching_prot, TrEMBL_ontology
-		WHERE matching_prot.M5 = TrEMBL_ontology.M5 ));
-	open FILE, ">$output_path/result_TrEMBL_ontology" or die;
+	my $result= $dbh -> selectall_arrayref (qq(SELECT matching_prot.*, TrEMBL_ontology.GO_Id, GO_ontology.Ontology, TrEMBL_ontology.Ontology FROM matching_prot, TrEMBL_ontology; GO_ontology
+		WHERE matching_prot.M5 = TrEMBL_ontology.M5 AND TrEMBL_ontology.GO_Id = GO_ontology.Id));
+	open FILE, ">$output_path/Ontology_TrEMBL" or die;
 	foreach my $I (@$result){
-		my ($id, $M5, $Identity, $Evalue, $Bit_score, $GO_Id, $Ontology ) = @$I;
-		print FILE "$id \t $M5 \t $Identity \t $Evalue \t $Bit_score \t $GO_Id\t $Ontology \n";
+		my ($id, $M5, $Identity, $Evalue, $Bit_score, $GO_Id, $Ontology, $level2 ) = @$I;
+		print FILE "$id \t $M5 \t $Identity \t $Evalue \t $Bit_score \t $GO_Id\t $Ontology \t level2\n";
 	}	
 	close FILE;
 }
@@ -289,12 +320,125 @@ sub RefSeq_tax {
 	}	
 	close FILE;
 }
+###########################################################################
+sub eggNOG {
+	print "Matching eggNOG database\n";
+	my $result= $dbh -> selectall_arrayref (qq(SELECT matching_prot.*, eggNOG_function.Id, eggNOG_function.Protein, eggNOG_function.Specie, eggNOG_function.DB FROM matching_prot, eggNOG_function
+		WHERE matching_prot.M5 = eggNOG_function.M5 ));
+	open FILE, ">$output_path/result_eggNOG" or die;
+	foreach my $I (@$result){
+		my ($id, $M5, $Identity, $Evalue, $Bit_score, $Id, $Protein, $Specie, $DB) = @$I;
+		print FILE "$id \t $M5 \t $Identity \t $Evalue \t $Bit_score \t $Id\t $Protein \t $Specie \t $DB \n";
+	}	
+	close FILE;
+}
 
+sub eggNOG_ontology{
+	my $result= $dbh -> selectall_arrayref (qq(SELECT matching_prot.*, eggNOG_ontology.Id, Ontologies.Level1, Ontologies.Level2, Ontologies.Level3, eggNOG_ontology.DB FROM matching_prot, eggNOG_ontology, Ontologies
+		WHERE matching_prot.M5 = eggNOG_ontology.M5 AND eggNOG_ontology.Id = Ontologies.Id ));
+	open FILE, ">$output_path/Ontology_eggNOG" or die;
+	foreach my $I (@$result){
+		my ($id, $M5, $Identity, $Evalue, $Bit_score, $Id, $Level1, $Level2, $Level3, $DB) = @$I;
+		print FILE "$id \t $M5 \t $Identity \t $Evalue \t $Bit_score \t $Id\t $Level1 \t $Level2 \t $Level3 \t $DB \n";
+	}	
+	close FILE;
+}
+
+sub LSU {
+	print "Matching SILVA database\n";
+	my $result= $dbh -> selectall_arrayref (qq(SELECT matching_prot.*, LSU_function.Id, LSU_function.Protein, LSU_function.Specie, LSU_function.DB FROM matching_prot, LSU_function
+		WHERE matching_prot.M5 = LSU_function.M5 ));
+	open FILE, ">$output_path/result_LSU" or die;
+	foreach my $I (@$result){
+		my ($id, $M5, $Identity, $Evalue, $Bit_score, $Id, $Protein, $Specie, $DB) = @$I;
+		print FILE "$id \t $M5 \t $Identity \t $Evalue \t $Bit_score \t $Id\t $Protein \t $Specie \t $DB \n";
+	}	
+	close FILE;
+}
+
+sub LSU_tax {
+	my $result= $dbh -> selectall_arrayref (qq(SELECT matching_prot.*, LSU_function.Id, LSU_tax.Taxonomy FROM matching_prot, LSU_function, LSU_tax
+		WHERE matching_prot.M5 = LSU_function.M5 AND LSU_function.Id = LSU_tax.Id ));
+	open FILE, ">$output_path/rRna_LSU_taxonomy" or die;
+	foreach my $I (@$result){
+		my ($id, $M5, $Identity, $Evalue, $Bit_score, $Id, $Taxonomy) = @$I;
+		print FILE "$id \t $M5 \t $Identity \t $Evalue \t $Bit_score \t $Id\t $Taxonomy \n";
+	}	
+	close FILE;
+}
+
+sub SSU {
+	my $result= $dbh -> selectall_arrayref (qq(SELECT matching_prot.*, SSU_function.Id, SSU_function.Protein, SSU_function.Specie, SSU_function.DB FROM matching_prot, SSU_function
+		WHERE matching_prot.M5 = SSU_function.M5 ));
+	open FILE, ">$output_path/result_SSU" or die;
+	foreach my $I (@$result){
+		my ($id, $M5, $Identity, $Evalue, $Bit_score, $Id, $Protein, $Specie, $DB) = @$I;
+		print FILE "$id \t $M5 \t $Identity \t $Evalue \t $Bit_score \t $Id\t $Protein \t $Specie \t $DB \n";
+	}	
+	close FILE;
+}
+
+sub SSU_tax {
+	my $result= $dbh -> selectall_arrayref (qq(SELECT matching_prot.*, SSU_function.Id, SSU_tax.Taxonomy FROM matching_prot, SSU_function, SSU_tax
+		WHERE matching_prot.M5 = SSU_function.M5 AND SSU_function.Id = SSU_tax.Id ));
+	open FILE, ">$output_path/rRna_SSU_taxonomy" or die;
+	foreach my $I (@$result){
+		my ($id, $M5, $Identity, $Evalue, $Bit_score, $Id, $Taxonomy) = @$I;
+		print FILE "$id \t $M5 \t $Identity \t $Evalue \t $Bit_score \t $Id\t $Taxonomy \n";
+	}	
+	close FILE;
+}
+
+sub RDP  {
+	print "Matching RDP database\n";
+	my $result= $dbh -> selectall_arrayref (qq(SELECT matching_prot.*, RDP_function.Id, RDP_function.Protein, RDP_function.Specie, RDP_function.DB FROM matching_prot, RDP_function
+		WHERE matching_prot.M5 = RDP_function.M5 ));
+	open FILE, ">$output_path/result_RDP" or die;
+	foreach my $I (@$result){
+		my ($id, $M5, $Identity, $Evalue, $Bit_score, $Id, $Protein, $Specie, $DB) = @$I;
+		print FILE "$id \t $M5 \t $Identity \t $Evalue \t $Bit_score \t $Id\t $Protein \t $Specie \t $DB \n";
+	}	
+	close FILE;
+}
+
+sub RDP_tax {
+	my $result= $dbh -> selectall_arrayref (qq(SELECT matching_prot.*, RDP_function.Id, RDP_tax.Taxonomy FROM matching_prot, RDP_function, RDP_tax
+		WHERE matching_prot.M5 = RDP_function.M5 AND RDP_function.Id = RDP_tax.Id ));
+	open FILE, ">$output_path/rRna_RDP_taxonomy" or die;
+	foreach my $I (@$result){
+		my ($id, $M5, $Identity, $Evalue, $Bit_score, $Id, $Taxonomy) = @$I;
+		print FILE "$id \t $M5 \t $Identity \t $Evalue \t $Bit_score \t $Id\t $Taxonomy \n";
+	}	
+	close FILE;
+}
+
+sub Greengenes {
+	print "Matching Greengenes database\n";
+	my $result= $dbh -> selectall_arrayref (qq(SELECT matching_prot.*, Greengenes_function.Id, Greengenes_function.Protein, Greengenes_function.Specie, Greengenes_function.DB FROM matching_prot, Greengenes_function
+		WHERE matching_prot.M5 = Greengenes_function.M5 ));
+	open FILE, ">$output_path/result_Greengenes" or die;
+	foreach my $I (@$result){
+		my ($id, $M5, $Identity, $Evalue, $Bit_score, $Id, $Protein, $Specie, $DB) = @$I;
+		print FILE "$id \t $M5 \t $Identity \t $Evalue \t $Bit_score \t $Id\t $Protein \t $Specie \t $DB \n";
+	}	
+	close FILE;
+}
+
+sub Greengenes_tax {
+	my $result= $dbh -> selectall_arrayref (qq(SELECT matching_prot.*, Greengenes_function.Id, Greengenes_tax.Taxonomy FROM matching_prot, Greengenes_function, Greengenes_tax
+		WHERE matching_prot.M5 = Greengenes_function.M5 AND Greengenes_function.Id = Greengenes_tax.Id ));
+	open FILE, ">$output_path/rRna_Greengenes_taxonomy" or die;
+	foreach my $I (@$result){
+		my ($id, $M5, $Identity, $Evalue, $Bit_score, $Id, $Taxonomy) = @$I;
+		print FILE "$id \t $M5 \t $Identity \t $Evalue \t $Bit_score \t $Id\t $Taxonomy \n";
+	}	
+	close FILE;
+}
 
 sub taxonomy {
 	my $result= $dbh -> selectall_arrayref (qq(SELECT matching_prot.*, m5_lca.domain, m5_lca.phylium, m5_lca.class, m5_lca.orders, m5_lca.family, m5_lca.genus, m5_lca.specie, m5_lca.name, m5_lca.level FROM matching_prot, m5_lca
 		WHERE matching_prot.M5 = m5_lca.M5_ID ));
-	open FILE, ">$output_path/result_tax" or die;
+	open FILE, ">$output_path/Taxonomy" or die;
 	foreach my $I (@$result){
 		my ($id, $M5, $Identity, $Evalue, $Bit_score, $Domain, $Phylium, $Class, $Orders, $Family, $Genus, $Specie, $Name, $Level ) = @$I;
 		print FILE "$id \t $M5 \t $Identity \t $Evalue \t $Bit_score \t $Domain \t $Phylium \t $Class \t $Orders \t $Family \t $Genus \t $Specie \t $Name \t $Level \n";
