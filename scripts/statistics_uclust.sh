@@ -31,14 +31,16 @@ awk '
 #The sequence id is saved when the line starts with ">"
 #A counter counts each cluster in order to numerate each one. 
 #When the line doesn't start with ">", it counts all the characters in the line (sequence length)
-awk 'NR==FNR{a[$1]=$2; FS $3 ;next}{print $0,a[$2]}' temp2 temp1 > uclust_summary
+awk 'NR==FNR{a[$1]=$2; FS $3 ;next}{print $0,"\t"a[$2]}' temp2 temp1 > ./statistic_files/cluster_summary
+cat ./statistic_files/cluster_summary | sort -nr -k 4,4 > ./statistic_files/cluster_sum
 #if the column 1 of the temp2 is the same than the column 2 in temp1 marge the two files in a new document. 
-if [ -s uclust_summary ]
+if [ -s ./statistic_files/cluster_sum ]
 then
         rm -f temp1
         rm -f temp2
+        rm -f ./statistic_files/cluster_summary
 else
-        rm -f uclust_summary
+        rm -f ./statistic_files/cluster_sum
         echo "ERROR: It is not posible to generate UCLUST cluster summary. Please check the Uclust output"
         exit 1 
 fi
