@@ -14,17 +14,22 @@ TRAIN= "illumina_5"
 // [illumina_10] for Illumina sequencing reads with about 1% error rate
 
 PATH_TO_Md5nr= "~/Escriptori/test_db"
- // PATH TO DATABASE Md5nr. This path is used to run BLAT, the ORF predictions against the Md5nr database. 
+ // PATH TO DATABASE Md5nr FASTA FILE. This path is used to run BLAT, the ORF predictions against the Md5nr database. 
  // WARNING: Bpipes needs a backslash to skip a backslash, so it is needed to double them. Ex:  PATH_TO_Md5nr= "/media/MY\\ PASSPORT/test_db"
+PATH_TO_md5rna= "~/Escriptori/md5rna"
+// PATH TO DATABASE Md5rna FASTA FILE. This path is used to run BLAT. The clusted reads are matched against rRNA gene database. 
+ // WARNING: Bpipes needs a backslash to skip a backslash, so it is needed to double them. Ex:  PATH_TO_Md5nr= "/media/MY\\ PASSPORT/test_db"
+
 SCORE= 30
 // BLAT minimum score. This is the matches minus the mismatches minus some sort of gap penalty.
 MIN_ID= 25 
 // BLAT minumum identity. 
 
 PATH_TO_LOCAL_M5="/media/My\\ Passport/Sources/M5nr_db"
+ // PATH TO YOUR LOCAL DATABASE (sqlite3). BUILD a database with DATABASES in M5. 
  // WARNING: Bpipes needs a backslash to skip a backslash, so it is needed to double them. Ex:  PATH_TO_Md5nr= "/media/MY\\ PASSPORT/test_db"
 
-DATABASES="ALL"
+DATABASES="rRNA"
  //InterPro
  //IMG
  //PHANTOME
@@ -34,5 +39,6 @@ DATABASES="ALL"
  //UniProt
  //KEGG
  //ALL
+ //rRNA
 
 //OUT_PATH="./Hits_databases/"
