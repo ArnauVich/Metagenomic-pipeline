@@ -14,10 +14,10 @@ Statistics_filtered= segment {
 }
 
 Quality_graph= segment {
-	[Dinucleotide_odds, Sequence_duplication, GC_content]
+	[Dinucleotide_odds+ Graph_values_dinucleotide, Sequence_duplication+ Graph_values_duplicates, GC_content+ Graph_values_gc]
 }
 Filtered_graph= segment {
-	[Dinucleotide_odds_fil, Sequence_duplication_fil, GC_content_fil]
+	[Dinucleotide_odds_fil+ Graph_values_fil_dinucleotide, Sequence_duplication+ Graph_values_fil_duplicates, GC_content_fil+ Graph_values_fil_gc]
 }
 
 
@@ -28,14 +28,14 @@ Bpipe.run{
 	Statistics_graph_2
 }
 Bpipe.run{
-	Quality_graph
+	Quality_graph //+ Graph_values
 }
-Bpipe.run{
-	Graph_values
-}
+//Bpipe.run{
+//	Graph_values
+//}
 Bpipe.run {
 	Remove_adapters + Trim_tails + Ends_trimming + Artifact_filter + N_filter + Quality_filter + Length_filter + Remove_duplicates + [Filtered_graph, Statistics_graph_2_fil] 
 }
-Bpipe.run {
-	Graph_values_fil
-}
+//Bpipe.run {
+//	Graph_values_fil
+//}
