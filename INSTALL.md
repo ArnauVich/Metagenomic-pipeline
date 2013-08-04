@@ -1,14 +1,47 @@
 Pipeline dependencies
 ==================================
+
 This pipeline needs the following programs for running correctly.
 
+The installed programs have to be added in the $PATH. (except FragGeneScan) 
+
+The "scripts" folder have to be added in the $PATH and all the files in it have to be set as executables (chmod). 
 
 =================================
 
 - Bpipe:
 
 http://code.google.com/p/bpipe/
+
 Sadedin S, Pope B & Oshlack A, Bpipe: A Tool for Running and Managing Bioinformatics Pipelines, Bioinformatics
+
+- PERL: 
+
+http://www.perl.org/
+
+PERL MODULES: 
+
+ a)DBI::SQLITE
+
+- R 
+
+R LIBRARIES:
+ 
+ a)ggplot
+
+http://ggplot2.org/
+
+H. Wickham. ggplot2: elegant graphics for data analysis. Springer New York, 2009.
+
+
+ b)Nozzle 
+
+https://confluence.broadinstitute.org/display/GDAC/Nozzle
+
+
+install.packages( "Nozzle.R1" );
+
+Gehlenborg N, et al. Nozzle: a report generation toolkit for data analysis pipelines. Bioinformatics. 2013 Apr 15;29(8):1089-91
 
 ==================================
 
@@ -106,4 +139,12 @@ http://prodigal.ornl.gov/
 License: GNU General Public License version 3.0 (GPLv3)
 
 Hyatt D, Chen GL, Locascio PF, Land ML, Larimer FW, Hauser LJ. Prodigal: prokaryotic gene recognition and translation initiation site identification. BMC Bioinformatics. 2010 Mar 8;11(1):119
+
+- BLAT : 
+
+http://hgdownload.cse.ucsc.edu/admin/exe/
+
+License: Specific copyright for commercial uses. 
+
+Kent WJ. BLAT - the BLAST-like alignment tool. Genome Res. 2002 Apr;12(4):656-64.
 
