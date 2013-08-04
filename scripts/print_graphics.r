@@ -404,6 +404,395 @@ ggsave(file="../graph/clustering_high.png", plot2, unit="in", width=20.3, height
 }
 
 
+
+##################PIE CHART FOR RIBOSOMIC FILES###################
+
+if(file.exists("rRna_RDP_taxonomy_domain")){
+	domain <- read.table ("rRna_RDP_taxonomy_domain", sep="\t")
+	png(file="../graph/RDP_domain_low.png", width=600, height=550, res=75)
+	pie(domain$V3, labels=domain$V3, clockwise=TRUE, col=graph_col, main="More representative Domains")
+	legend("topright", legend=domain$V2, cex=0.8, fill=graph_col)
+	dev.off()
+	png(file="../graph/RDP_domain_high.png", width=1300, height=850, res=75)
+	pie(as.numeric(domain$V3), labels=domain$V3, clockwise=TRUE, col=graph_col, main="More representative Domains")
+	legend("topright", legend=domain$V2, cex=0.8, fill=graph_col)
+	dev.off()
+}
+
+if(file.exists("rRna_RDP_taxonomy_phylum")){
+	family <- read.table ("rRna_RDP_taxonomy_phylum", sep="\t")
+	family[, 1] <- as.numeric(as.character( family[, 1] ))
+	family[, 3] <- as.numeric(as.character( family[, 3] ))
+	piedat <- rbind(family[1:7, ],
+                as.data.frame(t(c(sum(family[8:nrow(family),1]),
+                                "Others",
+                                sum(family[8:nrow(family),3])))))
+	png(file="../graph/RDP_phylum_low.png", width=600, height=550, res=75)
+	pie(as.numeric(piedat$V3), labels=piedat$V3, clockwise=TRUE, col=graph_col, main="More representative Phyliums")
+	legend("topright", legend=piedat$V2, cex=0.8, fill=graph_col)
+	dev.off()
+	png(file="../graph/RDP_phylm_high.png", width=1300, height=850, res=75)
+	pie(as.numeric(piedat$V3), labels=piedat$V3, clockwise=TRUE, col=graph_col, main="More representative Phyliums")
+	legend("topright", legend=piedat$V2, cex=0.8, fill=graph_col)
+	dev.off()
+}
+
+if(file.exists("rRna_RDP_taxonomy_class")){
+	family <- read.table ("rRna_RDP_taxonomy_class", sep="\t")
+	piedat <- rbind(family[1:15, ],
+                as.data.frame(t(c(sum(family[16:nrow(family),1]),
+                                "Others",
+                                sum(family[16:nrow(family),3])))))
+	png(file="../graph/RDP_class_low.png", width=600, height=550, res=75)
+	pie(as.numeric(piedat$V3), labels=piedat$V3, clockwise=TRUE, col=graph_col, main="More representative Classes")
+	legend("topright", legend=piedat$V2, cex=0.8, fill=graph_col)
+	dev.off()
+	png(file="../graph/RDP_class_high.png", width=1300, height=850, res=75)
+	pie(as.numeric(piedat$V3), labels=piedat$V3, clockwise=TRUE, col=graph_col, main="More representative Classes")
+	legend("topright", legend=piedat$V2, cex=0.8, fill=graph_col)
+	dev.off()
+}
+
+if(file.exists("rRna_RDP_taxonomy_order")){
+	family <- read.table ("rRna_RDP_taxonomy_order", sep="\t")
+	piedat <- rbind(family[1:15, ],
+                as.data.frame(t(c(sum(family[16:nrow(family),1]),
+                                "Others",
+                                sum(family[16:nrow(family),3])))))
+	png(file="../graph/RDP_order_low.png", width=600, height=550, res=75)
+	pie(as.numeric(piedat$V3), labels=piedat$V3, clockwise=TRUE, col=graph_col, main="More representative Order")
+	legend("topright", legend=piedat$V2, cex=0.8, fill=graph_col)
+	dev.off()
+	png(file="../graph/RDP_order_high.png", width=1300, height=850, res=75)
+	pie(as.numeric(piedat$V3), labels=piedat$V3, clockwise=TRUE, col=graph_col, main="More representative Order")
+	legend("topright", legend=piedat$V2, cex=0.8, fill=graph_col)
+	dev.off()
+}
+
+if(file.exists("rRna_RDP_taxonomy_family")){
+	family <- read.table ("rRna_RDP_taxonomy_family", sep="\t")
+	piedat <- rbind(family[1:15, ],
+                as.data.frame(t(c(sum(family[16:nrow(family),1]),
+                                "Others",
+                                sum(family[16:nrow(family),3])))))
+	png(file="../graph/RDP_family_low.png", width=600, height=550, res=75)
+	pie(as.numeric(piedat$V3), labels=piedat$V3, clockwise=TRUE, col=graph_col, main="More representative Families")
+	legend("topright", legend=piedat$V2, cex=0.8, fill=graph_col)
+	dev.off()
+	png(file="../graph/RDP_family_high.png", width=1300, height=850, res=75)
+	pie(as.numeric(piedat$V3), labels=piedat$V3, clockwise=TRUE, col=graph_col, main="More representative Families")
+	legend("topright", legend=piedat$V2, cex=0.8, fill=graph_col)
+	dev.off()
+}
+
+if(file.exists("rRna_RDP_taxonomy_genus")){
+	family <- read.table ("rRna_RDP_taxonomy_genus", sep="\t")
+	piedat <- rbind(family[1:15, ],
+                as.data.frame(t(c(sum(family[16:nrow(family),1]),
+                                "Others",
+                                sum(family[16:nrow(family),3])))))
+	png(file="../graph/RDP_genus_low.png", width=600, height=550, res=75)
+	pie(as.numeric(piedat$V3), labels=piedat$V3, clockwise=TRUE, col=graph_col, main="More representative genus")
+	legend("topright", legend=piedat$V2, cex=0.8, fill=graph_col)
+	dev.off()
+	png(file="../graph/RDP_genus_high.png", width=1300, height=850, res=75)
+	pie(as.numeric(piedat$V3), labels=piedat$V3, clockwise=TRUE, col=graph_col, main="More representative genus")
+	legend("topright", legend=piedat$V2, cex=0.8, fill=graph_col)
+	dev.off()
+}
+
+
+if(file.exists("rRna_LSU_taxonomy_domain")){
+	domain <- read.table ("rRna_LSU_taxonomy_domain", sep="\t")
+	png(file="../graph/LSU_domain_low.png", width=600, height=550, res=75)
+	pie(domain$V3, labels=domain$V3, clockwise=TRUE, col=graph_col, main="More representative Domains")
+	legend("topright", legend=domain$V2, cex=0.8, fill=graph_col)
+	dev.off()
+	png(file="../graph/LSU_domain_high.png", width=1300, height=850, res=75)
+	pie(as.numeric(domain$V3), labels=domain$V3, clockwise=TRUE, col=graph_col, main="More representative Domains")
+	legend("topright", legend=domain$V2, cex=0.8, fill=graph_col)
+	dev.off()
+}
+
+if(file.exists("rRna_LSU_taxonomy_phylum")){
+	family <- read.table ("rRna_LSU_taxonomy_phylum", sep="\t")
+	piedat <- rbind(family[1:9, ],
+                as.data.frame(t(c(sum(family[10:nrow(family),1]),
+                                "Others",
+                                sum(family[10:nrow(family),3])))))
+	png(file="../graph/LSU_phylum_low.png", width=600, height=550, res=75)
+	pie(as.numeric(piedat$V3), labels=piedat$V3, clockwise=TRUE, col=graph_col, main="More representative Phyliums")
+	legend("topright", legend=piedat$V2, cex=0.8, fill=graph_col)
+	dev.off()
+	png(file="../graph/LSU_phylm_high.png", width=1300, height=850, res=75)
+	pie(as.numeric(piedat$V3), labels=piedat$V3, clockwise=TRUE, col=graph_col, main="More representative Phyliums")
+	legend("topright", legend=piedat$V2, cex=0.8, fill=graph_col)
+	dev.off()
+}
+
+if(file.exists("rRna_LSU_taxonomy_class")){
+	family <- read.table ("rRna_LSU_taxonomy_class", sep="\t")
+	piedat <- rbind(family[1:15, ],
+                as.data.frame(t(c(sum(family[16:nrow(family),1]),
+                                "Others",
+                                sum(family[16:nrow(family),3])))))
+	png(file="../graph/LSU_class_low.png", width=600, height=550, res=75)
+	pie(as.numeric(piedat$V3), labels=piedat$V3, clockwise=TRUE, col=graph_col, main="More representative Classes")
+	legend("topright", legend=piedat$V2, cex=0.8, fill=graph_col)
+	dev.off()
+	png(file="../graph/LSU_class_high.png", width=1300, height=850, res=75)
+	pie(as.numeric(piedat$V3), labels=piedat$V3, clockwise=TRUE, col=graph_col, main="More representative Classes")
+	legend("topright", legend=piedat$V2, cex=0.8, fill=graph_col)
+	dev.off()
+}
+
+if(file.exists("rRna_LSU_taxonomy_order")){
+	family <- read.table ("rRna_LSU_taxonomy_order", sep="\t")
+	piedat <- rbind(family[1:15, ],
+                as.data.frame(t(c(sum(family[16:nrow(family),1]),
+                                "Others",
+                                sum(family[16:nrow(family),3])))))
+	png(file="../graph/LSU_order_low.png", width=600, height=550, res=75)
+	pie(as.numeric(piedat$V3), labels=piedat$V3, clockwise=TRUE, col=graph_col, main="More representative Order")
+	legend("topright", legend=piedat$V2, cex=0.8, fill=graph_col)
+	dev.off()
+	png(file="../graph/LSU_order_high.png", width=1300, height=850, res=75)
+	pie(as.numeric(piedat$V3), labels=piedat$V3, clockwise=TRUE, col=graph_col, main="More representative Order")
+	legend("topright", legend=piedat$V2, cex=0.8, fill=graph_col)
+	dev.off()
+}
+
+if(file.exists("rRna_LSU_taxonomy_family")){
+	family <- read.table ("rRna_LSU_taxonomy_family", sep="\t")
+	piedat <- rbind(family[1:15, ],
+                as.data.frame(t(c(sum(family[16:nrow(family),1]),
+                                "Others",
+                                sum(family[16:nrow(family),3])))))
+	png(file="../graph/LSU_family_low.png", width=600, height=550, res=75)
+	pie(as.numeric(piedat$V3), labels=piedat$V3, clockwise=TRUE, col=graph_col, main="More representative Families")
+	legend("topright", legend=piedat$V2, cex=0.8, fill=graph_col)
+	dev.off()
+	png(file="../graph/LSU_family_high.png", width=1300, height=850, res=75)
+	pie(as.numeric(piedat$V3), labels=piedat$V3, clockwise=TRUE, col=graph_col, main="More representative Families")
+	legend("topright", legend=piedat$V2, cex=0.8, fill=graph_col)
+	dev.off()
+}
+
+if(file.exists("rRna_LSU_taxonomy_genus")){
+	family <- read.table ("rRna_LSU_taxonomy_genus", sep="\t")
+	piedat <- rbind(family[1:15, ],
+                as.data.frame(t(c(sum(family[16:nrow(family),1]),
+                                "Others",
+                                sum(family[16:nrow(family),3])))))
+	png(file="../graph/LSU_genus_low.png", width=600, height=550, res=75)
+	pie(as.numeric(piedat$V3), labels=piedat$V3, clockwise=TRUE, col=graph_col, main="More representative genus")
+	legend("topright", legend=piedat$V2, cex=0.8, fill=graph_col)
+	dev.off()
+	png(file="../graph/LSU_genus_high.png", width=1300, height=850, res=75)
+	pie(as.numeric(piedat$V3), labels=piedat$V3, clockwise=TRUE, col=graph_col, main="More representative genus")
+	legend("topright", legend=piedat$V2, cex=0.8, fill=graph_col)
+	dev.off()
+}
+
+
+if(file.exists("rRna_SSU_taxonomy_domain")){
+	domain <- read.table ("rRna_SSU_taxonomy_domain", sep="\t")
+	png(file="../graph/SSU_domain_low.png", width=600, height=550, res=75)
+	pie(domain$V3, labels=domain$V3, clockwise=TRUE, col=graph_col, main="More representative Domains")
+	legend("topright", legend=domain$V2, cex=0.8, fill=graph_col)
+	dev.off()
+	png(file="../graph/SSU_domain_high.png", width=1300, height=850, res=75)
+	pie(as.numeric(domain$V3), labels=domain$V3, clockwise=TRUE, col=graph_col, main="More representative Domains")
+	legend("topright", legend=domain$V2, cex=0.8, fill=graph_col)
+	dev.off()
+}
+
+if(file.exists("rRna_SSU_taxonomy_phylum")){
+	family <- read.table ("rRna_SSU_taxonomy_phylum", sep="\t")
+	piedat <- rbind(family[1:9, ],
+                as.data.frame(t(c(sum(family[10:nrow(family),1]),
+                                "Others",
+                                sum(family[10:nrow(family),3])))))
+	png(file="../graph/SSU_phylum_low.png", width=600, height=550, res=75)
+	pie(as.numeric(piedat$V3), labels=piedat$V3, clockwise=TRUE, col=graph_col, main="More representative Phyliums")
+	legend("topright", legend=piedat$V2, cex=0.8, fill=graph_col)
+	dev.off()
+	png(file="../graph/SSU_phylm_high.png", width=1300, height=850, res=75)
+	pie(as.numeric(piedat$V3), labels=piedat$V3, clockwise=TRUE, col=graph_col, main="More representative Phyliums")
+	legend("topright", legend=piedat$V2, cex=0.8, fill=graph_col)
+	dev.off()
+}
+
+if(file.exists("rRna_SSU_taxonomy_class")){
+	family <- read.table ("rRna_SSU_taxonomy_class", sep="\t")
+	piedat <- rbind(family[1:15, ],
+                as.data.frame(t(c(sum(family[16:nrow(family),1]),
+                                "Others",
+                                sum(family[16:nrow(family),3])))))
+	png(file="../graph/SSU_class_low.png", width=600, height=550, res=75)
+	pie(as.numeric(piedat$V3), labels=piedat$V3, clockwise=TRUE, col=graph_col, main="More representative Classes")
+	legend("topright", legend=piedat$V2, cex=0.8, fill=graph_col)
+	dev.off()
+	png(file="../graph/SSU_class_high.png", width=1300, height=850, res=75)
+	pie(as.numeric(piedat$V3), labels=piedat$V3, clockwise=TRUE, col=graph_col, main="More representative Classes")
+	legend("topright", legend=piedat$V2, cex=0.8, fill=graph_col)
+	dev.off()
+}
+
+if(file.exists("rRna_SSU_taxonomy_order")){
+	family <- read.table ("rRna_SSU_taxonomy_order", sep="\t")
+	piedat <- rbind(family[1:15, ],
+                as.data.frame(t(c(sum(family[16:nrow(family),1]),
+                                "Others",
+                                sum(family[16:nrow(family),3])))))
+	png(file="../graph/SSU_order_low.png", width=600, height=550, res=75)
+	pie(as.numeric(piedat$V3), labels=piedat$V3, clockwise=TRUE, col=graph_col, main="More representative Order")
+	legend("topright", legend=piedat$V2, cex=0.8, fill=graph_col)
+	dev.off()
+	png(file="../graph/SSU_order_high.png", width=1300, height=850, res=75)
+	pie(as.numeric(piedat$V3), labels=piedat$V3, clockwise=TRUE, col=graph_col, main="More representative Order")
+	legend("topright", legend=piedat$V2, cex=0.8, fill=graph_col)
+	dev.off()
+}
+
+if(file.exists("rRna_SSU_taxonomy_family")){
+	family <- read.table ("rRna_SSU_taxonomy_family", sep="\t")
+	piedat <- rbind(family[1:15, ],
+                as.data.frame(t(c(sum(family[16:nrow(family),1]),
+                                "Others",
+                                sum(family[16:nrow(family),3])))))
+	png(file="../graph/SSU_family_low.png", width=600, height=550, res=75)
+	pie(as.numeric(piedat$V3), labels=piedat$V3, clockwise=TRUE, col=graph_col, main="More representative Families")
+	legend("topright", legend=piedat$V2, cex=0.8, fill=graph_col)
+	dev.off()
+	png(file="../graph/SSU_family_high.png", width=1300, height=850, res=75)
+	pie(as.numeric(piedat$V3), labels=piedat$V3, clockwise=TRUE, col=graph_col, main="More representative Families")
+	legend("topright", legend=piedat$V2, cex=0.8, fill=graph_col)
+	dev.off()
+}
+
+if(file.exists("rRna_SSU_taxonomy_genus")){
+	family <- read.table ("rRna_SSU_taxonomy_genus", sep="\t")
+	piedat <- rbind(family[1:15, ],
+                as.data.frame(t(c(sum(family[16:nrow(family),1]),
+                                "Others",
+                                sum(family[16:nrow(family),3])))))
+	png(file="../graph/SSU_genus_low.png", width=600, height=550, res=75)
+	pie(as.numeric(piedat$V3), labels=piedat$V3, clockwise=TRUE, col=graph_col, main="More representative genus")
+	legend("topright", legend=piedat$V2, cex=0.8, fill=graph_col)
+	dev.off()
+	png(file="../graph/SSU_genus_high.png", width=1300, height=850, res=75)
+	pie(as.numeric(piedat$V3), labels=piedat$V3, clockwise=TRUE, col=graph_col, main="More representative genus")
+	legend("topright", legend=piedat$V2, cex=0.8, fill=graph_col)
+	dev.off()
+}
+
+
+if(file.exists("rRna_Greengenes_taxonomy_domain")){
+	domain <- read.table ("rRna_Greengenes_taxonomy_domain", sep="\t")
+	png(file="../graph/Greengenes_domain_low.png", width=600, height=550, res=75)
+	pie(domain$V3, labels=domain$V3, clockwise=TRUE, col=graph_col, main="More representative Domains")
+	legend("topright", legend=domain$V2, cex=0.8, fill=graph_col)
+	dev.off()
+	png(file="../graph/Greengenes_domain_high.png", width=1300, height=850, res=75)
+	pie(as.numeric(domain$V3), labels=domain$V3, clockwise=TRUE, col=graph_col, main="More representative Domains")
+	legend("topright", legend=domain$V2, cex=0.8, fill=graph_col)
+	dev.off()
+}
+
+if(file.exists("rRna_Greengenes_taxonomy_phylum")){
+	family <- read.table ("rRna_Greengenes_taxonomy_phylum", sep="\t")
+	piedat <- rbind(family[1:9, ],
+                as.data.frame(t(c(sum(family[10:nrow(family),1]),
+                                "Others",
+                                sum(family[10:nrow(family),3])))))
+	png(file="../graph/Greengenes_phylum_low.png", width=600, height=550, res=75)
+	pie(as.numeric(piedat$V3), labels=piedat$V3, clockwise=TRUE, col=graph_col, main="More representative Phyliums")
+	legend("topright", legend=piedat$V2, cex=0.8, fill=graph_col)
+	dev.off()
+	png(file="../graph/Greengenes_phylm_high.png", width=1300, height=850, res=75)
+	pie(as.numeric(piedat$V3), labels=piedat$V3, clockwise=TRUE, col=graph_col, main="More representative Phyliums")
+	legend("topright", legend=piedat$V2, cex=0.8, fill=graph_col)
+	dev.off()
+}
+
+if(file.exists("rRna_Greengenes_taxonomy_class")){
+	family <- read.table ("rRna_Greengenes_taxonomy_class", sep="\t")
+	piedat <- rbind(family[1:15, ],
+                as.data.frame(t(c(sum(family[16:nrow(family),1]),
+                                "Others",
+                                sum(family[16:nrow(family),3])))))
+	png(file="../graph/Greengenes_class_low.png", width=600, height=550, res=75)
+	pie(as.numeric(piedat$V3), labels=piedat$V3, clockwise=TRUE, col=graph_col, main="More representative Classes")
+	legend("topright", legend=piedat$V2, cex=0.8, fill=graph_col)
+	dev.off()
+	png(file="../graph/Greengenes_class_high.png", width=1300, height=850, res=75)
+	pie(as.numeric(piedat$V3), labels=piedat$V3, clockwise=TRUE, col=graph_col, main="More representative Classes")
+	legend("topright", legend=piedat$V2, cex=0.8, fill=graph_col)
+	dev.off()
+}
+
+if(file.exists("rRna_Greengenes_taxonomy_order")){
+	family <- read.table ("rRna_Greengenes_taxonomy_order", sep="\t")
+	piedat <- rbind(family[1:15, ],
+                as.data.frame(t(c(sum(family[16:nrow(family),1]),
+                                "Others",
+                                sum(family[16:nrow(family),3])))))
+	png(file="../graph/Greengenes_order_low.png", width=600, height=550, res=75)
+	pie(as.numeric(piedat$V3), labels=piedat$V3, clockwise=TRUE, col=graph_col, main="More representative Order")
+	legend("topright", legend=piedat$V2, cex=0.8, fill=graph_col)
+	dev.off()
+	png(file="../graph/Greengenes_order_high.png", width=1300, height=850, res=75)
+	pie(as.numeric(piedat$V3), labels=piedat$V3, clockwise=TRUE, col=graph_col, main="More representative Order")
+	legend("topright", legend=piedat$V2, cex=0.8, fill=graph_col)
+	dev.off()
+}
+
+if(file.exists("rRna_Greengenes_taxonomy_family")){
+	family <- read.table ("rRna_Greengenes_taxonomy_family", sep="\t")
+	piedat <- rbind(family[1:15, ],
+                as.data.frame(t(c(sum(family[16:nrow(family),1]),
+                                "Others",
+                                sum(family[16:nrow(family),3])))))
+	png(file="../graph/Greengenes_family_low.png", width=600, height=550, res=75)
+	pie(as.numeric(piedat$V3), labels=piedat$V3, clockwise=TRUE, col=graph_col, main="More representative Families")
+	legend("topright", legend=piedat$V2, cex=0.8, fill=graph_col)
+	dev.off()
+	png(file="../graph/Greengenes_family_high.png", width=1300, height=850, res=75)
+	pie(as.numeric(piedat$V3), labels=piedat$V3, clockwise=TRUE, col=graph_col, main="More representative Families")
+	legend("topright", legend=piedat$V2, cex=0.8, fill=graph_col)
+	dev.off()
+}
+
+if(file.exists("rRna_Greengenes_taxonomy_genus")){
+	family <- read.table ("rRna_Greengenes_taxonomy_genus", sep="\t")
+	piedat <- rbind(family[1:15, ],
+                as.data.frame(t(c(sum(family[16:nrow(family),1]),
+                                "Others",
+                                sum(family[16:nrow(family),3])))))
+	png(file="../graph/Greengenes_genus_low.png", width=600, height=550, res=75)
+	pie(as.numeric(piedat$V3), labels=piedat$V3, clockwise=TRUE, col=graph_col, main="More representative genus")
+	legend("topright", legend=piedat$V2, cex=0.8, fill=graph_col)
+	dev.off()
+	png(file="../graph/Greengenes_genus_high.png", width=1300, height=850, res=75)
+	pie(as.numeric(piedat$V3), labels=piedat$V3, clockwise=TRUE, col=graph_col, main="More representative genus")
+	legend("topright", legend=piedat$V2, cex=0.8, fill=graph_col)
+	dev.off()
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ##ggplot(ids_rep,aes(x=reorder(V2,V2, function(x)-length(x)))) + geom_bar(colour="black", fill="#F0E442") + labs (title="Uniqs Clusters in Databases", x="Databases", y= "Number of clusters") + theme_bw()
 #TOP TEN GRAPHIC
 ##
