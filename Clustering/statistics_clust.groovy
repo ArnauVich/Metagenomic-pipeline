@@ -1,7 +1,7 @@
 
 Statistics_cd_hit = {
 	
-	exec "statistics_clustering.sh $input > ./statistic_files/cluster_sum"
+	exec "statistics_clustering.sh ${input}.clstr > ./statistic_files/cluster_sum"
 }
 Statistics_dnaclust = {
 	exec " statistics_dnaclust.sh dnaclust_clusters $input "
