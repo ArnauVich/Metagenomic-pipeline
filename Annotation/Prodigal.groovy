@@ -1,4 +1,5 @@
 Prodigal = {
 	
-	exec " prodigal -i $input -n -a $output1.faa -p meta -f gff -o $output2"
+	exec " prodigal -i $input -n -d $output1.ffn -p meta -f gff -o $output2"
+	exec "count_clust.sh $input"
 }
