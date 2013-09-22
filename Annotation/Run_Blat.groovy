@@ -11,5 +11,5 @@ Blat_f ={
 
 Blat_r = {
 	exec "blat $PATH_TO_md5rna $input -t=dna -q=dna -out=blast8 -minScore=$SCORE -minIdentity=$MIN_ID $output"
-	exec "select_id.sh $input "
+	exec "select_id_ribo.sh $input "
 }
