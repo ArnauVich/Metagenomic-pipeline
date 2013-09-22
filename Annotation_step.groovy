@@ -7,10 +7,12 @@ Create_dir ={
 
 
 FGS_pred= segment{
-	FGS + Statistics_FGS + Blat_f + Select_columns + Use_sqlite
+	//FGS + Statistics_FGS + Blat_f + Select_columns + Use_sqlite
+	FGS + Statistics_FGS + Pauda_f + Clean + Filter_hits + Select_columns2 + Use_sqlite
 }
 Prodigal_pred= segment{
-	Prodigal + Statistics_prodigal + Blat_p + Select_columns + Use_sqlite
+	//Prodigal + Statistics_prodigal + Blat_p + Select_columns + Use_sqlite
+	Prodigal + Statistics_prodigal + Pauda_p + Clean + Filter_hits + Select_columns2 + Use_sqlite
 }
 
 Ribosomic= segment {
@@ -38,8 +40,12 @@ Bpipe.run{
 //	Orf_predictor + Blat + Select_columns + Use_sqlite
 //}
 Bpipe.run{
-	[Graph_hits, Graph_tax, Graph_Ontology, Graph_Clusters, Graph_ribosomic]
+	[Graph_hits, Graph_tax, Graph_Ontology, Graph_Clusters, Graph_ribosomic, Tables]
 }
-Bpipe.run{
+/Bpipe.run{
 	Create_graphic
+}
+
+Bpipe.run{
+	Report
 }
