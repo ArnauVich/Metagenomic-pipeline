@@ -29,6 +29,11 @@ PATH_TO_LOCAL_M5="/media/My\\ Passport/Sources/M5nr_db"
  // PATH TO YOUR LOCAL DATABASE (sqlite3). BUILD a database with DATABASES in M5. 
  // WARNING: Bpipes needs a backslash to skip a backslash, so it is needed to double them. Ex:  PATH_TO_Md5nr= "/media/MY\\ PASSPORT/test_db"
 
+PATH_2_DB_INDEX="~/Escriptori/SEED.fa"
+ // PATH to the indexed database. PAUDA needs a previous indexing step. User have to indexing the database (M5nr) before using the pipeline. 
+
+PAUDA="fast"
+ // Choose FAST for a fast approximation or alternatively choose SLOW for a more accurate results (more reads assigned) but much time cosuming. 
 DATABASES="rRNA"
  //InterPro
  //IMG
@@ -38,7 +43,10 @@ DATABASES="rRNA"
  //SEED
  //UniProt
  //KEGG
- //ALL
- //rRNA
+ //SILVA
+ //RDP
+ //GreeenGenes
+ //ALL   -> for all protein databases
+ //rRNA  -> for all ribosomal databases
 
 //OUT_PATH="./Hits_databases/"
